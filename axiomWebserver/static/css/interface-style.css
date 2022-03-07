@@ -1,0 +1,38 @@
+body {
+  background-color:#252630;
+  color:white;
+  text-align:center;
+}
+#app {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+.chart {
+  border-radius: 1%;
+  margin-left:-45vw !important;
+  margin-top:-45vh !important;
+  width: 90vw !important;
+  height: 90vh !important;
+}
+.chart .z-content {
+  border-radius: 0;
+}
+.chart .z-outer-circle {
+  margin-left:-50vw !important;
+  margin-top:-50vh !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: 0;
+}
+.chart-container {
+  position: absolute;
+  top:      0;
+  left:     0;
+  width:    100%;
+  height:   100%;
+}

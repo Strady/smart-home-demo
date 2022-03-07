@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Назначение &#8212; документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Пакет axiomLowLevelCommunication" href="axiomLowLevelCommunication.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="axiomLowLevelCommunication.html" title="Пакет axiomLowLevelCommunication"
+             accesskey="N">вперёд</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p><strong>Функциональный модуль «Взаимодействие с низким уровнем»</strong> является компонентом серверной части высокоуровневого ПО системы
+управления и автоматизации Axiom (далее - система), который служит интерфейсом взаимодействия с низкоуровневым ПО системы
+для функционального модуля «Логика», а также осуществляет инициализацию и контроль работы низкоуровневого ПО.</p>
+<div class="contents topic" id="id1">
+<p class="topic-title first">Содержание</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id2" id="id16">Назначение</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id17">Информационное взаимодействие</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id18">Взаимодействие с функциональным модулем «Логика»</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id19">Взаимодействие с низкоуровневым ПО</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id9" id="id20">Развертывание на целевой платформе</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id10" id="id21">Описание аппаратной конфигурации системы</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id22">Запуск функционального модуля</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id23">Управление запуском функционального модуля</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id13" id="id24">Структура компонента</a></p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h1><a class="toc-backref" href="#id16">Назначение</a><a class="headerlink" href="#id2" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Функциональный модуль «Взаимодействие с низким уровнем» предназначен для:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Прием команд и запросов от модуля «Логика» на изменение состояния аппаратных компонентов.</p></li>
+<li><p>Отправка на низкоуровневое ПО команд на изменение состояния аппаратных компонентов.</p></li>
+<li><p>Отправка на низкоуровневое ПО запросов на измерение электрических характеристик аппаратных компонентов.</p></li>
+<li><p>Отправка на низкоуровневое ПО команд на запуск и конфигурацию.</p></li>
+<li><p>Прием от низкоуровневого ПО сообщений с информацией о текущем техническом состоянии аппаратных модулей системы.</p></li>
+<li><p>Прием от низкоуровневого ПО сообщений о результатах выполнения команд.</p></li>
+<li><p>Контроль исполнения отправленных на низкоуровневое ПО команд.</p></li>
+<li><p>Отправка на функциональный модуль «Логика» сообщений с текущим состоянием аппаратных компонентов при его изменении.</p></li>
+<li><p>Отправка на функциональный модуль «Логика» сообщений с показателями электрических характеристик аппаратных модулей.</p></li>
+<li><p>Отправка на функциональный модуль «Логика» сообщений об ошибках.</p></li>
+<li><p>Запись в лог сообщений о полученных от функционального модуля «Логика» командах.</p></li>
+<li><p>Запись в лог сообщений об изменении состояния аппаратных компонентов.</p></li>
+<li><p>Запись в лог сообщений об ошибках.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h1><a class="toc-backref" href="#id17">Информационное взаимодействие</a><a class="headerlink" href="#id3" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id4">
+<h2><a class="toc-backref" href="#id18">Взаимодействие с функциональным модулем «Логика»</a><a class="headerlink" href="#id4" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><p>Информационное взаимодействие модуля «Логика» с модулем  «Взаимодействие с низким уровнем» реализуется
+посредством передачи сообщений с использованием механизма обмена сообщениями, предоставляемого нереляционной базой данных Redis,
+основывающемся на паттерне «издатель-подписчик» («pubsub»). Модуль «Логика» является издателем командных сообщений и
+подписчиком на информационные сообщения. Модуль «Взаимодействие с низким уровнем» является издателем информационных
+сообщений и подписчиком на командные сообщения.</p>
+<div class="figure align-center" id="id14">
+<img alt="_images/axiomLowLevelCommunication_axiomLogic_exchange.png" src="_images/axiomLowLevelCommunication_axiomLogic_exchange.png" />
+<p class="caption"><span class="caption-text">Схема взаимодействия между модулями</span><a class="headerlink" href="#id14" title="Постоянная ссылка на рисунок">¶</a></p>
+</div>
+</div></blockquote>
+<div class="section" id="id5">
+<h3>Командные и информационные сообщения изменения состояния выходов силовых модулей<a class="headerlink" href="#id5" title="Ссылка на этот заголовок">¶</a></h3>
+<blockquote>
+<div><p>Командные сообщения от модуля «Логика» передаются в канале <code class="docutils literal notranslate"><span class="pre">axiomLogic:cmd:state</span></code>. Информационные сообщения
+от модуля «Взаимодействие с низким уровнем» передаются в канале <code class="docutils literal notranslate"><span class="pre">axiomLowLevelCommunication:info:state</span></code>.</p>
+<p>Командные и информационные сообщения изменения состояния аппаратных компонентов представляют собой JSON структуру следующего вида:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s1">&#39;addr&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">адрес</span> <span class="n">канала</span> <span class="n">силового</span> <span class="n">модуля</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">состояние</span> <span class="n">канала</span> <span class="n">силового</span> <span class="n">модуля</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>где</p>
+<blockquote>
+<div><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">канала</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span></code> - уникальный идентификатор аппаратного компонента системы, который имеет следующий формат <code class="docutils literal notranslate"><span class="pre">ch:&lt;адрес</span> <span class="pre">силового</span> <span class="pre">модуля&gt;:&lt;номер</span> <span class="pre">канала&gt;</span></code>, где</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span></code> - уникальный идентификатор силового модуля в системе,
+который может иметь значения «mx», где x ∈ Z. Адрес аппаратного модуля задается программным
+обеспечением низкого уровня, установленным на данном модуле;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;номер</span> <span class="pre">канала&gt;</span></code> может иметь значение „1“ или „2“.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;состояние</span> <span class="pre">канала</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span></code> - JSON, описывающий состояние канала силового выхода, имеющий формат: <code class="docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">&lt;состояние</span> <span class="pre">канала&gt;}</span></code>, где <code class="docutils literal notranslate"><span class="pre">&lt;состояние</span> <span class="pre">канала&gt;</span></code> может принимать значения „4“, „5“ для командных сообщений и „0“…„7“ - для информационных.</p></li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h3>Информационные сообщения об электрический характеристиках<a class="headerlink" href="#id6" title="Ссылка на этот заголовок">¶</a></h3>
+<blockquote>
+<div><p>Информационные сообщения, содержащие текущие значения электрических характеристик аппаратных модулей, передаются в канале <code class="docutils literal notranslate"><span class="pre">axiomLowLevelConnection:info:metrics_data</span></code>.
+Сообщения представляют собой JSON следующего формата:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s1">&#39;Pa1&#39;</span><span class="p">:</span> <span class="n">Pa1</span><span class="p">,</span>
+<span class="s1">&#39;Pa2&#39;</span><span class="p">:</span> <span class="n">Pa2</span><span class="p">,</span>
+<span class="s1">&#39;Pr1&#39;</span><span class="p">:</span> <span class="n">Pr1</span><span class="p">,</span>
+<span class="s1">&#39;Pr2&#39;</span><span class="p">:</span> <span class="n">Pr2</span><span class="p">,</span>
+<span class="s1">&#39;I1&#39;</span><span class="p">:</span> <span class="n">I1</span><span class="p">,</span>
+<span class="s1">&#39;I2&#39;</span><span class="p">:</span> <span class="n">I2</span><span class="p">,</span>
+<span class="s1">&#39;T1&#39;</span><span class="p">:</span> <span class="n">T1</span><span class="p">,</span>
+<span class="s1">&#39;T2&#39;</span><span class="p">:</span> <span class="n">T2</span><span class="p">,</span>
+<span class="s1">&#39;U&#39;</span><span class="p">:</span> <span class="n">U</span><span class="p">,</span>
+<span class="s1">&#39;F&#39;</span><span class="p">:</span> <span class="n">F</span><span class="p">,</span>
+<span class="s1">&#39;addr&#39;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">адрес</span> <span class="n">силового</span> <span class="n">модуля</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>где</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pa1</span></code>, <code class="docutils literal notranslate"><span class="pre">Pa2</span></code> - потребляемая активная мощность в первом и втором канале силового модуля соответственно;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pr1</span></code>, <code class="docutils literal notranslate"><span class="pre">Pr2</span></code> - потребляемая реактивная мощность в первом и втором канале силового модуля соответственно;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">I1</span></code>, <code class="docutils literal notranslate"><span class="pre">I2</span></code> - потребляемый ток в первом и втором канале силового модуля соответственно;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T1</span></code>, <code class="docutils literal notranslate"><span class="pre">T2</span></code> - температура первого и второго канала силового модуля соответственно;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">U</span></code> - напряжение электросети на модуле ввода;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">F</span></code> - частота электросети на модуле ввода.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h3>Запросы на измерение сопротивления изоляции<a class="headerlink" href="#id7" title="Ссылка на этот заголовок">¶</a></h3>
+<blockquote>
+<div><p>Сообщения-запросы на измерение сопротивления изоляции отправляются модулем «Логика» в канал <code class="docutils literal notranslate"><span class="pre">axiomLogic:request:insulation</span></code>.
+Полезной нагрузкой сообщения является сторока с адресом канала силового модуля (см. <code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">канала</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span></code> в разделе
+«Командные и информационные сообщения изменения состояния выходов силовых модулей»)</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id8">
+<h2><a class="toc-backref" href="#id19">Взаимодействие с низкоуровневым ПО</a><a class="headerlink" href="#id8" title="Ссылка на этот заголовок">¶</a></h2>
+<blockquote>
+<div><p>Информационное взаимодействие модуля «Взаимодействие с низким уровнем» с низкоуровневым ПО представляет собой обмен
+строковыми сообщениями, передаваемыми по двунаправленному интерфейсу UART. Подробное описание протокола взаимодействия
+приведено в отдельном документе.</p>
+<div class="figure align-center" id="id15">
+<img alt="_images/axiomLowLevelCommunication_LowLevelSoft_exchange.png" src="_images/axiomLowLevelCommunication_LowLevelSoft_exchange.png" />
+<p class="caption"><span class="caption-text">Схема взаимодействия между модулем и низкоуровневым ПО</span><a class="headerlink" href="#id15" title="Постоянная ссылка на рисунок">¶</a></p>
+</div>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id9">
+<h1><a class="toc-backref" href="#id20">Развертывание на целевой платформе</a><a class="headerlink" href="#id9" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="section" id="id10">
+<h2><a class="toc-backref" href="#id21">Описание аппаратной конфигурации системы</a><a class="headerlink" href="#id10" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для работы функционального модуля «Взаимодействие с низким уровнем» необходим файл с описанием аппаратной конфигурации
+системы /etc/axiom/settings.json, содержащий JSON следующего вида:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>{
+    &#39;hardware units&#39;: {
+        &lt;адрес модуля ввода&gt;: [
+            &lt;адрес силового модуля&gt;,
+            …
+    ],
+        …
+    },
+    &#39;input units&#39;: {
+        &lt;адрес модуля ввода&gt;: &lt;адрес последовательного порта&gt;,
+        …
+    },
+    &#39;power units&#39;: {
+        &lt;адрес силового модуля&gt;: &lt;адрес последовательного порта&gt;,
+        …
+    },
+    &#39;power units thresholds&#39;: {
+        &lt;адрес силового модуля&gt;: [&lt;порог 1&gt;, &lt;порог 2&gt;],
+        …
+}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">модуля</span> <span class="pre">ввода&gt;</span></code> - уникальный идентификатор модуля ввода в системе.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span></code> - уникальный идентификатор силового модуля в системе.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">последовательного</span> <span class="pre">порта&gt;</span></code> - имя последовательного порта в операционной системе целевой платформы.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;порог</span> <span class="pre">1&gt;,</span> <span class="pre">&lt;порог</span> <span class="pre">2&gt;</span></code> - максимальное значение потребляемого тока в кодовых единицах в первом
+и втором канале силового модуля соответственно.</p>
+</div>
+<div class="section" id="id11">
+<h2><a class="toc-backref" href="#id22">Запуск функционального модуля</a><a class="headerlink" href="#id11" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для запуска функционального модуля «Взаимодействие с низким уровнем» используется скрипт run_LowLevelCommunication.py,
+размещаемый в главной директории ПО системы:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">setproctitle</span>
+<span class="kn">from</span> <span class="nn">axiomLowLevelCommunication</span> <span class="k">import</span> <span class="n">hlt</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="c1"># Имя процесса</span>
+    <span class="n">setproctitle</span><span class="o">.</span><span class="n">setproctitle</span><span class="p">(</span><span class="s1">&#39;axiom low level communication&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Обработчик сигналов SIGTERM, SIGINT</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="n">hlt</span><span class="o">.</span><span class="n">sigterm_handler</span><span class="p">)</span>
+    <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">hlt</span><span class="o">.</span><span class="n">sigterm_handler</span><span class="p">)</span>
+
+    <span class="n">hlt</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id23">Управление запуском функционального модуля</a><a class="headerlink" href="#id12" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Для выполнения ПО системы своего функционального назначения функциональный модуль «Взаимодействие с низким уровнем»
+должен запускаться при запуске ОС целевой платформы, а также автоматически перезапускаться в случае аварийной остановки.
+Для выполнения данных требований контроль работы функционального модуля осуществляется с помощью менеджера процессов <strong>Supervisor</strong>.
+Добавление программ под управление <strong>Supervisor</strong> осуществляется путем создания конфигурационных файлов и размещения их
+в директории /etc/supervisor/conf.d. Конфигурационный файл функционального модуля «Взаимодействие с низким уровнем»
+axiomLowLevelCommunication.conf должен иметь следующее содержимое:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">program</span><span class="p">:</span><span class="n">axiomLowLevelCommunication</span><span class="p">]</span>
+<span class="n">command</span><span class="o">=</span><span class="n">python3</span><span class="o">.</span><span class="mi">4</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">office</span><span class="o">/</span><span class="n">axiomProject</span><span class="o">/</span><span class="n">run_LowLevelCommunication</span><span class="o">.</span><span class="n">py</span>
+<span class="n">process_name</span><span class="o">=%</span><span class="p">(</span><span class="n">program_name</span><span class="p">)</span><span class="n">s</span>
+<span class="n">autostart</span><span class="o">=</span><span class="n">true</span>
+<span class="n">autorestart</span><span class="o">=</span><span class="n">unexpected</span>
+<span class="n">stderr_logfile</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">stdout_logfile</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">priority</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id13">
+<h1><a class="toc-backref" href="#id24">Структура компонента</a><a class="headerlink" href="#id13" title="Ссылка на этот заголовок">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="axiomLowLevelCommunication.html">Пакет axiomLowLevelCommunication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="highLowTransceiver.html">Модуль highLowTransceiver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialTransceiver.html">Модуль serialTransceiver</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Оглавление</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Назначение</a></li>
+<li><a class="reference internal" href="#id3">Информационное взаимодействие</a><ul>
+<li><a class="reference internal" href="#id4">Взаимодействие с функциональным модулем «Логика»</a><ul>
+<li><a class="reference internal" href="#id5">Командные и информационные сообщения изменения состояния выходов силовых модулей</a></li>
+<li><a class="reference internal" href="#id6">Информационные сообщения об электрический характеристиках</a></li>
+<li><a class="reference internal" href="#id7">Запросы на измерение сопротивления изоляции</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">Взаимодействие с низкоуровневым ПО</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">Развертывание на целевой платформе</a><ul>
+<li><a class="reference internal" href="#id10">Описание аппаратной конфигурации системы</a></li>
+<li><a class="reference internal" href="#id11">Запуск функционального модуля</a></li>
+<li><a class="reference internal" href="#id12">Управление запуском функционального модуля</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">Структура компонента</a></li>
+</ul>
+
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="axiomLowLevelCommunication.html"
+                        title="следующая глава">Пакет axiomLowLevelCommunication</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="axiomLowLevelCommunication.html" title="Пакет axiomLowLevelCommunication"
+             >вперёд</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Андрей Абраменко.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.0.
+    </div>
+  </body>
+</html>

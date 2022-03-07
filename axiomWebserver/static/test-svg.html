@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<!-- <script src="svg.js"></script> -->
+	<script src="script-svg.js"></script>
+</head>
+<body>
+	<button onclick="blink('ao-0')">Get in</button>
+	<div>
+		<div id="axiom-cover">
+			<object data="axiom.svg" type="image/svg+xml" id="axiom">
+				<img src="static/img/axiom.png" style="height: 100%; width: 100%" alt="">
+			</object>
+
+			<!-- <iframe src="axiom.svg" id="axiom" frameborder="0"></iframe> -->
+		</div>
+	</div>
+
+	<style>
+		#axiom-cover {
+			width: 950px;
+			height: 90vh;
+			margin: auto;
+		}
+		#axiom {
+			width: 100%;
+			height: 100%;
+		}
+		.selected {
+			fill: red;
+		}
+	</style>
+</body>
+</html>

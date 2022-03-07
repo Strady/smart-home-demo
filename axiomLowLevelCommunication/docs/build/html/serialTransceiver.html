@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Модуль serialTransceiver &#8212; документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Модуль highLowTransceiver" href="highLowTransceiver.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="highLowTransceiver.html" title="Модуль highLowTransceiver"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="axiomLowLevelCommunication.html" accesskey="U">Пакет axiomLowLevelCommunication</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="serialtransceiver">
+<h1>Модуль serialTransceiver<a class="headerlink" href="#serialtransceiver" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver">
+<em class="property">class </em><code class="sig-prename descclassname">axiomLowLevelCommunication.serialTransceiver.</code><code class="sig-name descname">SerialTransceiver</code><span class="sig-paren">(</span><em class="sig-param">port</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Класс предоставляет API для работы с последовательным портом.
+Основан на библиотеке pySerial</p>
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">port</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.__init__"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Инициализирует экземпляр класса</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>port</strong> (<em>str</em>) – имя файла последовательного порта в ОС</p>
+</dd>
+<dt class="field-even">Переменные</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>port</strong> – имя файла COM порта в ОС</p></li>
+<li><p><strong>ser_lock</strong> – блокировка записи/чтения из последовательного порта</p></li>
+<li><p><strong>write_event</strong> – блокировка чтения из последовательного порта</p></li>
+<li><p><strong>ser</strong> – объект подключения к последовательному порту</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.close"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.close" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Безопасно закрывает поключение к последовательному порту</p>
+<dl class="field-list simple">
+<dt class="field-odd">Тип результата</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Результат</dt>
+<dd class="field-even"><p>True в случае успеха, False - в случае ошибки</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.open"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.open" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Открывает последовательный порт</p>
+<dl class="field-list simple">
+<dt class="field-odd">Тип результата</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Результат</dt>
+<dd class="field-even"><p>True в случае успеха, False - в случае ошибки</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.read"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Читает данные из последовательного порта</p>
+<p>Блокирует чтение/запись из последовательного порта до появления терминальной последовательности</p>
+<dl class="field-list simple">
+<dt class="field-odd">Тип результата</dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+<dt class="field-even">Результат</dt>
+<dd class="field-even"><p>прочитанные данные</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/read.png"><img alt="_images/read.png" src="_images/read.png" style="width: 589.2px; height: 906.0px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read_generator">
+<code class="sig-name descname">read_generator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.read_generator"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read_generator" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Читает данные из последовательного порта</p>
+<p>Работает аналогично функции <a class="reference internal" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read" title="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read"><code class="xref py py-func docutils literal notranslate"><span class="pre">read()</span></code></a>, но в формате генератора</p>
+<dl class="field-list simple">
+<dt class="field-odd">Пример</dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">for</span> <span class="pre">data</span> <span class="pre">in</span> <span class="pre">ser.read_generator():</span> <span class="pre">pass</span></code></p>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bytes</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>прочитанные данные</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/serialTransceiver.html#SerialTransceiver.write"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.write" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Записывает данные в последовательный порт</p>
+<p>При записи последовательный порт блокируется (для других потоков) как на запись, так и на чтение</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – строка для записи</p>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>True - нет ошибок при записи, False - возникли ошибки</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/write.png"><img alt="_images/write.png" src="_images/write.png" style="width: 627.6px; height: 791.2px;" /></a>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="highLowTransceiver.html"
+                        title="предыдущая глава">Модуль highLowTransceiver</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/serialTransceiver.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="highLowTransceiver.html" title="Модуль highLowTransceiver"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="axiomLowLevelCommunication.html" >Пакет axiomLowLevelCommunication</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Андрей Абраменко.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+st 0 0 0 0 1119m2
+adc 2048 2048 1119m2
+ld 4 4 0 0 1119m2
+st 0 0 0 0 1120m2
+adc 2048 2048 1120m2
+ld 4 4 0 0 1120m2
+st 0 0 0 0 1121m2
+adc 2048 2048 1121m2
+ld 4 4 0 0 1121m2
+st 0 0 0 0 1122m2
+adc 2048 2048 1122m2
+ld 4 4 0 0 1122m2
+st 0 0 0 0 1123m2
+adc 2048 2048 1123m2
+ld 4 4 0 0 1123m2
+st 0 0 0 0 1124m2
+adc 2048 2048 1124m2
+ld 4 4 0 0 1124m2
+st 0 0 0 0 1125m2
+adc 2048 2048 1125m2
+ld 4 4 0 0 1125m2
+st 0 0 0 0 1126m2
+adc 2048 2048 1126m2
+ld 4 4 0 0 1126m2
+rst m2
+run start m2
+st 0 0 0 0 0m2
+adc 2048 2048 0m2
+ld 4 4 0 0 0m2
+st 0 0 0 0 1m2
+adc 2048 2048 1m2
+ld 4 4 0 0 1m2
+st 0 0 0 0 2m2
+adc 2048 2048 2m2
+ld 4 4 0 0 2m2
+run start m2
+st 0 0 0 0 3m2
+adc 2048 2048 3m2
+ld 4 4 0 0 3m2
+st 0 0 0 0 4m2
+adc 2048 2048 4m2
+ld 4 4 0 0 4m2
+st 0 0 0 0 5m2
+adc 2048 2048 5m2
+ld 4 4 0 0 5m2
+st 0 0 0 0 6m2
+adc 2048 2048 6m2
+ld 4 4 0 0 6m2
+st 0 0 0 0 7m2
+adc 2048 2048 7m2
+ld 4 4 0 0 7m2
+run start m2rply proc
+ess running 0m2
+st 1 1 1 1 8m2
+adc 2048 2048 8m2
+ld 4 4 0 0 8m2
+st 1 1 1 1 9m2
+adc 2048 2048 9m2
+ld 4 4 0 0 9m2
+st 1 3 1 2 10m2
+adc 2048 2048 10m2
+ld 4 4 0 0 10m2
+triac
+st 2 3 6 2 11m2
+adc 2048 2048 11m2
+ld 4 4 0 0 11m2
+adc hgrp 64 255 145 0 m2
+1m2 hgrp ok
+üýÿst 2 4 6 9 12m2
+adc 2048 2048 12m2
+ld 4 4 0 0 12m2
+ch 2 on m2
+st 2 4 6 9 13m2
+adc 2048 2048 13m2
+ld 4 4 0 0 13m2
+st 2 4 6 9 14m2
+adc 2048 2048 14m2
+ld 4 4 0 0 14m2
+st 2 4 6 9 15m2
+adc 2048 2048 15m2
+ld 4 4 0 0 15m2
+ch 2 on m2
+þst 2 5 6 12 16m2
+adc 2048 2044 16m2
+ld 4 4 0 0 16m2
+ch 2 off m2
+st 2 4 6 13 17m2
+adc 2048 2048 17m2
+ld 4 4 0 0 17m2
+ch 2 on m2
+þst 2 5 6 12 18m2
+adc 2048 2042 18m2
+ld 4 4 0 0 18m2
+ch 2 off m2
+st 2 4 6 13 19m2
+adc 2048 2048 19m2
+ld 4 4 0 0 19m2
+ch 2 on m2
+þÿst 2 5 6 12 20m2
+adc 2048 2042 20m2
+ld 4 4 0 0 20m2
+ch 2 off m2
+st 2 4 6 13 21m2
+adc 2048 2048 21m2
+ld 4 4 0 0 21m2
+ch 2 on m2
+st 2 5 6 12 22m2
+adc 2048 2048 22m2
+ld 4 4 0 0 22m2
+ch 2 off m2
+st 2 4 6 13 23m2
+adc 2048 2048 23m2
+ld 4 4 0 0 23m2
+ch 2 on m2
+þst 2 5 6 12 24m2
+adc 2048 2051 24m2
+ld 4 4 0 0 24m2
+ch 2 off m2
+st 2 4 6 13 25m2
+adc 2048 2048 25m2
+ld 4 4 0 0 25m2
+ch 2 on m2
+þst 2 5 6 12 26m2
+adc 2048 2048 26m2
+ld 4 4 0 0 26m2
+ch 2 off m2
+st 2 4 6 13 27m2
+adc 2048 2048 27m2
+ld 4 4 0 0 27m2
+ch 2 on m2
+þst 2 5 6 12 28m2
+adc 2048 2055 28m2
+ld 4 4 0 0 28m2
+ch 2 off m2
+st 2 4 6 13 29m2
+adc 2048 2048 29m2
+ld 4 4 0 0 29m2
+ch 2 on m2
+þst 2 5 6 12 30m2
+adc 2048 2048 30m2
+ld 4 4 0 0 30m2
+ch 2 off m2
+st 2 4 6 13 31m2
+adc 2048 2048 31m2
+ld 4 4 0 0 31m2
+ch 2 on m2
+ÿst 2 5 6 12 32m2
+adc 2048 2048 32m2
+ld 4 4 0 0 32m2
+ch 2 off m2
+st 2 4 6 13 33m2
+adc 2048 2048 33m2
+ld 4 4 0 0 33m2
+ch 2 on m2
+þst 2 5 6 12 34m2
+adc 2048 2035 34m2
+ld 4 4 0 0 34m2
+ch 2 off m2
+st 2 4 6 13 35m2
+adc 2048 2048 35m2
+ld 4 4 0 0 35m2
+ch 2 on m2
+þst 2 5 6 12 36m2
+adc 2048 2055 36m2
+ld 4 4 0 0 36m2
+ch 2 off m2
+st 2 4 6 13 37m2
+adc 2048 2048 37m2
+ld 4 4 0 0 37m2
+ch 2 on m2
+st 2 5 6 12 38m2
+adc 2048 2048 38m2
+ld 4 4 0 0 38m2
+ch 2 off m2
+st 2 4 6 13 39m2
+adc 2048 2048 39m2
+ld 4 4 0 0 39m2
+ch 2 on m2
+ÿst 2 5 6 12 40m2
+adc 2048 2055 40m2
+ld 4 4 0 0 40m2
+ch 2 off m2
+st 2 4 6 13 41m2
+adc 2048 2048 41m2
+ld 4 4 0 0 41m2
+ch 2 on m2
+ÿst 2 5 6 12 42m2
+adc 2048 2056 42m2
+ld 4 4 0 0 42m2
+ch 2 off m2
+st 2 4 6 13 43m2
+adc 2048 2048 43m2
+ld 4 4 0 0 43m2
+ch 2 on m2
+þst 2 5 6 12 44m2
+adc 2048 2039 44m2
+ld 4 4 0 0 44m2
+ch 2 off m2
+st 2 4 6 13 45m2
+adc 2048 2048 45m2
+ld 4 4 0 0 45m2
+ch 2 on m2
+þþst 2 5 6 12 46m2
+adc 2048 2059 46m2
+ld 4 4 0 0 46m2
+ch 2 off m2
+st 2 5 6 12 47m2
+adc 2048 2052 47m2
+ld 4 4 0 0 47m2
+st 2 5 6 12 48m2
+adc 2048 2051 48m2
+ld 4 4 0 0 48m2
+st 2 5 6 12 49m2
+adc 2048 2052 49m2
+ld 4 4 0 0 49m2
+ch 2 off m2
+st 2 4 6 13 50m2
+adc 2048 2048 50m2
+ld 4 4 0 0 50m2
+ch 2 on m2
+st 2 5 6 12 51m2
+adc 2048 2048 51m2
+ld 4 4 0 0 51m2
+ch 2 off m2
+st 2 4 6 13 52m2
+adc 2048 2048 52m2
+ld 4 4 0 0 52m2
+ch 2 on m2
+ÿst 2 5 6 12 53m2
+adc 2048 2056 53m2
+ld 4 4 0 0 53m2
+ch 2 off m2
+st 2 4 6 13 54m2
+adc 2048 2048 54m2
+ld 4 4 0 0 54m2
+ch 2 on m2
+þst 2 5 6 12 55m2
+adc 2048 2055 55m2
+ld 4 4 0 0 55m2
+ch 2 off m2
+st 2 4 6 13 56m2
+adc 2048 2048 56m2
+ld 4 4 0 0 56m2
+ch 2 on m2
+st 2 5 6 12 57m2
+adc 2048 2055 57m2
+ld 4 4 0 0 57m2
+ch 2 off m2
+st 2 4 6 13 58m2
+adc 2048 2048 58m2
+ld 4 4 0 0 58m2
+ch 2 on m2
+ÿst 2 5 6 12 59m2
+adc 2048 2051 59m2
+ld 4 4 0 0 59m2
+ch 2 off m2
+st 2 4 6 13 60m2
+adc 2048 2048 60m2
+ld 4 4 0 0 60m2
+ch 2 on m2
+ÿþst 2 5 6 12 61m2
+adc 2048 2052 61m2
+ld 4 4 0 0 61m2
+ch 2 off m2
+st 2 4 6 13 62m2
+adc 2048 2048 62m2
+ld 4 4 0 0 62m2
+ch 2 on m2
+st 2 5 6 12 63m2
+adc 2048 2048 63m2
+ld 4 4 0 0 63m2
+ch 2 off m2
+st 2 4 6 13 64m2
+adc 2048 2048 64m2
+ld 4 4 0 0 64m2
+st 2 4 6 13 65m2
+adc 2048 2048 65m2
+ld 4 4 0 0 65m2
+st 2 4 6 13 66m2
+adc 2048 2048 66m2
+ld 4 4 0 0 66m2
+st 2 4 6 13 67m2
+adc 2048 2048 67m2
+ld 4 4 0 0 67m2
+st 2 4 6 13 68m2
+adc 2048 2048 68m2
+ld 4 4 0 0 68m2
+st 2 4 6 13 69m2
+adc 2048 2048 69m2

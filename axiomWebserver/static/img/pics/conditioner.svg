@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32pt"
+   height="32pt"
+   viewBox="0 0 32 32"
+   version="1.2"
+   id="svg4119"
+   sodipodi:docname="Кондиционер включен.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata4125">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4123" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview4121"
+     showgrid="false"
+     inkscape:zoom="5.53125"
+     inkscape:cx="21.333333"
+     inkscape:cy="21.333333"
+     inkscape:window-x="250"
+     inkscape:window-y="241"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4119" />
+  <g
+     id="surface93252">
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M 0 0 L -25.25 0 C -25.964844 0 -26.625 0.660156 -26.625 1.375 L -26.625 9.332031 C -26.625 10.804688 -25.347656 12 -23.875 12 L -1.375 12 C 0.0976563 12 1.375 10.804688 1.375 9.332031 L 1.375 1.375 C 1.375 0.660156 0.714844 0 0 0 Z M 0 0 "
+       transform="matrix(1,0,0,-1,28.625,14)"
+       id="path4098" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M -0.00126875 0 L -18.102831 0 C -19.161425 0 -20.0208 0.734375 -20.0208 1.792969 L -20.0208 6 L 1.9792 6 L 1.9792 1.792969 C 1.9792 0.734375 1.057325 0 -0.00126875 0 Z M -0.00126875 0 "
+       transform="matrix(1,0,0,-1,25.0208,8)"
+       id="path4100" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M 0 0 L 22 0 "
+       transform="matrix(1,0,0,-1,5,5)"
+       id="path4102" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M 0 0 L 0 1.449219 C 0 2.296875 0.972656 3 1.746094 3 L 16.601563 3 C 17.378906 3 18 2.296875 18 1.449219 L 18 0 "
+       transform="matrix(1,0,0,-1,7,14)"
+       id="path4104" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:bevel;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:4;"
+       d="M 0 0 L 0 -9 "
+       transform="matrix(1,0,0,-1,16,18)"
+       id="path4106" />
+    <path
+       style=" stroke:none;fill-rule:nonzero;fill:rgb(11.372375%,11.372375%,10.588074%);fill-opacity:1;"
+       d="M 13.476563 26 L 15.96875 30.316406 L 18.460938 26 Z M 13.476563 26 "
+       id="path4108" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:bevel;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:4;"
+       d="M 0.00126875 0.00005 C 0.00126875 -3.574169 -1.014356 -6.456981 -2.795606 -9.12495 "
+       transform="matrix(1,0,0,-1,6.9792,18.0313)"
+       id="path4110" />
+    <path
+       style=" stroke:none;fill-rule:nonzero;fill:rgb(11.372375%,11.372375%,10.588074%);fill-opacity:1;"
+       d="M 2.59375 25.03125 L 1.96875 29.980469 L 6.5625 28.050781 Z M 2.59375 25.03125 "
+       id="path4112" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:bevel;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:4;"
+       d="M 0.0017125 -0.00104375 C 0.0017125 -3.575263 1.013431 -6.458075 2.794681 -9.126044 "
+       transform="matrix(1,0,0,-1,25.0061,18.0263)"
+       id="path4114" />
+    <path
+       style=" stroke:none;fill-rule:nonzero;fill:rgb(11.372375%,11.372375%,10.588074%);fill-opacity:1;"
+       d="M 25.421875 28.046875 L 30.019531 29.972656 L 29.390625 25.027344 Z M 25.421875 28.046875 "
+       id="path4116" />
+  </g>
+</svg>

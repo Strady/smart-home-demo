@@ -1,0 +1,9 @@
+[
+  {
+    "function": "connect_checkbox_to_new_ch",
+    "args": [
+      "we:1",
+      "ch:m2:2"
+    ]
+  }
+]

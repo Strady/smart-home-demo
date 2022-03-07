@@ -1,0 +1,36 @@
+[
+  {
+      "node_type": "simple220widget",
+      "identifier": "we:1",
+      "name": "lamp",
+      "function": "light",
+      "location": "table",
+      "node_input": "sd:1"
+  },
+  {
+      "node_type": "simple220device",
+      "identifier": "sd:1",
+      "name": "lamp",
+      "function": "light",
+      "location": "table",
+      "node_inputs": ["we:1"],
+      "power_output": "ch:m2:1"
+  },
+  {
+      "node_type": "simple220widget",
+      "identifier": "we:2",
+      "name": "socket",
+      "function": "electricity",
+      "location": "table",
+      "node_input": "sd:1"
+  },
+  {
+      "node_type": "simple220device",
+      "identifier": "sd:2",
+      "name": "socket",
+      "function": "electricity",
+      "location": "table",
+      "node_inputs": ["we:2"],
+      "power_output": "ch:m2:2"
+  }
+]

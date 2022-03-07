@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32pt"
+   height="32pt"
+   viewBox="0 0 32 32"
+   version="1.2"
+   id="svg4324"
+   sodipodi:docname="Розетка выключенна.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata4330">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4328" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="640"
+     inkscape:window-height="480"
+     id="namedview4326"
+     showgrid="false"
+     inkscape:zoom="5.53125"
+     inkscape:cx="21.333333"
+     inkscape:cy="21.333333"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg4324" />
+  <g
+     id="surface112799">
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M -0.00091875 -0.00115625 C -0.00091875 -1.075375 -0.872013 -1.946469 -1.946231 -1.946469 C -3.02045 -1.946469 -3.891544 -1.075375 -3.891544 -0.00115625 C -3.891544 1.073062 -3.02045 1.944156 -1.946231 1.944156 C -0.872013 1.944156 -0.00091875 1.073062 -0.00091875 -0.00115625 Z M -0.00091875 -0.00115625 "
+       transform="matrix(1,0,0,-1,12.9267,16.034)"
+       id="path4315" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M -0.00091875 -0.00115625 C -0.00091875 -1.075375 -0.872012 -1.946469 -1.946231 -1.946469 C -3.02045 -1.946469 -3.891544 -1.075375 -3.891544 -0.00115625 C -3.891544 1.073062 -3.02045 1.944156 -1.946231 1.944156 C -0.872012 1.944156 -0.00091875 1.073062 -0.00091875 -0.00115625 Z M -0.00091875 -0.00115625 "
+       transform="matrix(1,0,0,-1,22.9267,16.034)"
+       id="path4317" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M 0 0.00194375 L 0 -2.287119 C 0 -2.623056 -0.273438 -2.9004 -0.613281 -2.9004 L -3.265625 -2.9004 C -3.605469 -2.9004 -4 -2.623056 -4 -2.287119 L -4 0.0996 L -3.941406 0.0996 C -8.789063 -0.9004 -12.957031 -5.373056 -12.957031 -10.916025 C -12.957031 -16.455087 -8.851563 -21.060556 -4 -21.908212 L -4 -19.537119 C -4 -19.197275 -3.605469 -18.9004 -3.265625 -18.9004 L -0.613281 -18.9004 C -0.273438 -18.9004 0 -19.197275 0 -19.537119 L 0 -21.919931 C 4.824219 -21.041025 8.957031 -16.478525 8.957031 -10.958994 C 8.957031 -5.439462 4.824219 -0.876962 0 0.00194375 Z M 0 0.00194375 "
+       transform="matrix(1,0,0,-1,18,5.0996)"
+       id="path4319" />
+    <path
+       style="fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(11.372375%,11.372375%,10.588074%);stroke-opacity:1;stroke-miterlimit:10;"
+       d="M 0 0 C 0 1.140625 -0.921875 2.0625 -2.0625 2.0625 L -25.9375 2.0625 C -27.078125 2.0625 -28 1.140625 -28 0 L -28 -23.875 C -28 -25.015625 -27.078125 -25.9375 -25.9375 -25.9375 L -2.0625 -25.9375 C -0.921875 -25.9375 0 -25.015625 0 -23.875 Z M 0 0 "
+       transform="matrix(1,0,0,-1,30,4.0625)"
+       id="path4321" />
+  </g>
+</svg>

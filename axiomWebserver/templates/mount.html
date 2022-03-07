@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Монтажный интерфейс</title>
+
+	<!-- Vue.js -->
+	<script src="/js/vue.js"></script>
+
+	<!-- Socket.IO -->
+	<script type="text/javascript" src="/js/socket.io.dev.js"></script>
+
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<!-- Main script -->
+	<script src="/js/script.js"></script>		
+
+	<!-- Main style -->
+	<link rel="stylesheet" href="/css/style.css">	
+</head>
+{%raw%}
+<body style="overflow-x:  hidden;">
+	<div id="app">
+		<hat :title="title"></hat>
+		<div class="container">
+			<transition name='slide-fade'>
+				<greeting :text="greeting" v-if="status != 'mounting'" v-on:action="greetingButton()"></greeting>	
+			</transition>
+			<transition name='slide-fade'>
+				<mount v-if="status == 'mounting'" :channel="channels[index]" v-on:action='nextChannel()'></mount>
+			</transition>
+		</div>
+	</div>
+
+	<!-- Greeting page -->
+	<template id="greeting">
+		<div>
+			<p v-html="text.text"></p>
+			<button class="btn btn-info" v-on:click="$emit('action')">{{text.buttontext}}</button>
+		</div>
+	</template>
+
+	<!-- Mount page -->
+	<template id="mount">
+		<div class="row">
+			<div class="col-sm-12 col-lg-6">
+				<p style="height: 10vh">Подключите <b>{{channel.name}}</b> к подсвечиваемому разъёму (<b>{{channel.channel}}</b>)</p>
+				<button class="btn btn-info" v-on:click="$emit('action')">Продолжить</button>
+			</div>
+			<div class="col-sm-12 col-lg-6">
+				<img src="./static/img/axiom2.png" style="width: 100%" alt="">
+			</div>
+		</div>
+	</template>
+
+	<!-- Header -->
+	<template id="hat">
+		<div class="p-3 mb-2 bg-dark text-light">
+			<h1 v-if="title != null" class="display-3">{{title}}</h1>
+		</div>
+	</template>
+</body>
+{%endraw%}
+</html>

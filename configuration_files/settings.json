@@ -1,0 +1,12 @@
+{
+  "root directory": "/home/pi/office/axiomProject",
+  "hardware units": {"m3": ["m2"]},
+  "input units": {"m3": {
+    "port": "/dev/ttyS0"
+  }},
+  "power units": {"m2": {
+    "port": "/dev/ttyS0",
+    "max consumption current": [16, 8],
+    "max leak current": [0.02, 0.02]
+  }}
+}

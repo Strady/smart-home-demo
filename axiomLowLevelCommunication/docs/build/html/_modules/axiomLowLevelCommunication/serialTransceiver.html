@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>axiomLowLevelCommunication.serialTransceiver &#8212; документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script type="text/javascript" src="../../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Алфавитный указатель" href="../../genindex.html" />
+    <link rel="search" title="Поиск" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Код модуля</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Исходный код axiomLowLevelCommunication.serialTransceiver</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">serial</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">sleep</span>
+<span class="c1"># from axiomLowLevelCommunication import logger</span>
+
+
+<div class="viewcode-block" id="SerialTransceiver"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver">[документация]</a><span class="k">class</span> <span class="nc">SerialTransceiver</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Класс предоставляет API для работы с последовательным портом.</span>
+<span class="sd">	Основан на библиотеке pySerial</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SerialTransceiver.__init__"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.__init__">[документация]</a>	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Инициализирует экземпляр класса</span>
+
+<span class="sd">		:type port: str</span>
+<span class="sd">		:param port: имя файла последовательного порта в ОС</span>
+
+<span class="sd">		:ivar port: имя файла COM порта в ОС</span>
+<span class="sd">		:ivar ser_lock: блокировка записи/чтения из последовательного порта</span>
+<span class="sd">		:ivar write_event: блокировка чтения из последовательного порта</span>
+<span class="sd">		:ivar ser: объект подключения к последовательному порту</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">port</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">ser</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">,</span> <span class="n">stopbits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bytesize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">parity</span><span class="o">=</span><span class="s1">&#39;N&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+									 <span class="n">xonxoff</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rtscts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">writeTimeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dsrdtr</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">interCharTimeout</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+		<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span><span class="p">:</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Ошибка при подключении к последовательному порту&#39;</span><span class="p">,</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SerialTransceiver.open"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.open">[документация]</a>	<span class="k">def</span> <span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Открывает последовательный порт</span>
+
+<span class="sd">		:rtype: bool</span>
+<span class="sd">		:return: True в случае успеха, False - в случае ошибки</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+			<span class="k">return</span> <span class="kc">True</span>
+		<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Ошибка при открытии последовательного порта: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="SerialTransceiver.close"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.close">[документация]</a>	<span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Безопасно закрывает поключение к последовательному порту</span>
+
+<span class="sd">		:rtype: bool</span>
+<span class="sd">		:return: True в случае успеха, False - в случае ошибки</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+			<span class="c1"># TODO написать тест</span>
+			<span class="k">return</span> <span class="kc">True</span>
+		<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="c1"># TODO написать тест</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Ошибка при открытии последовательного порта: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="SerialTransceiver.write"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.write">[документация]</a>	<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Записывает данные в последовательный порт</span>
+
+<span class="sd">		При записи последовательный порт блокируется (для других потоков) как на запись, так и на чтение</span>
+
+<span class="sd">		:type data: str</span>
+<span class="sd">		:param data: строка для записи</span>
+<span class="sd">		:rtype: bool</span>
+<span class="sd">		:return: True - нет ошибок при записи, False - возникли ошибки</span>
+
+<span class="sd">		.. figure:: _static/write.png</span>
+<span class="sd">			:scale: 40%</span>
+<span class="sd">			:align: center</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">reset_output_buffer</span><span class="p">()</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">reset_input_buffer</span><span class="p">()</span>
+				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+					<span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">reset_input_buffer</span><span class="p">()</span>
+					<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">reset_output_buffer</span><span class="p">()</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+					
+			<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+				<span class="n">log_msg</span> <span class="o">=</span> <span class="s1">&#39;Ошибка при записи команды </span><span class="si">{}</span><span class="s1"> в последовательный порт: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+				<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">log_msg</span><span class="o">=</span><span class="n">log_msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+				<span class="k">return</span> <span class="kc">False</span>
+			<span class="k">finally</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+			<span class="k">return</span> <span class="kc">True</span>
+		<span class="c1"># Если блокировка записи не снята до истечения таймаута</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+			<span class="n">log_msg</span> <span class="o">=</span> <span class="s1">&#39;Невозможно записать команду &quot;</span><span class="si">{}</span><span class="s1">&quot; в последовательный порт </span><span class="si">{}</span><span class="s1">.&#39;</span> \
+					  <span class="s1">&#39; Запись заблокирована другим потоком&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">log_msg</span><span class="o">=</span><span class="n">log_msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="SerialTransceiver.read"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read">[документация]</a>	<span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Читает данные из последовательного порта</span>
+
+<span class="sd">		Блокирует чтение/запись из последовательного порта до появления терминальной последовательности \r\n</span>
+
+<span class="sd">		:rtype: bytes</span>
+<span class="sd">		:return: прочитанные данные</span>
+
+<span class="sd">		.. figure:: _static/read.png</span>
+<span class="sd">			:scale: 40%</span>
+<span class="sd">			:align: center</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Запись имеет приоритет, ждем, пока закончится запить</span>
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+				<span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">read_until</span><span class="p">(</span><span class="n">terminator</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+				<span class="k">return</span> <span class="n">data</span>
+		<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Ошибка при чтении из последовательного порта: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="kc">False</span>
+		<span class="k">finally</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SerialTransceiver.read_generator"><a class="viewcode-back" href="../../serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver.read_generator">[документация]</a>	<span class="k">def</span> <span class="nf">read_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Читает данные из последовательного порта</span>
+
+<span class="sd">		Работает аналогично функции :func:`read`, но в формате генератора</span>
+
+<span class="sd">		:пример: ``for data in ser.read_generator(): pass``</span>
+<span class="sd">		:rtype: bytes</span>
+<span class="sd">		:return: прочитанные данные</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">while</span> <span class="n">threading</span><span class="o">.</span><span class="n">main_thread</span><span class="p">()</span><span class="o">.</span><span class="n">isAlive</span><span class="p">():</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">write_event</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Запись имеет приоритет, ждем, пока закончится запить</span>
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">acquire</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+					<span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">read_until</span><span class="p">(</span><span class="n">terminator</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+			<span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+				<span class="n">logger</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="s1">&#39;Ошибка при чтении из последовательного порта: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+			<span class="k">finally</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">ser_lock</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+				<span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+					<span class="k">yield</span> <span class="n">data</span>
+				<span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Код модуля</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Андрей Абраменко.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.0.
+    </div>
+  </body>
+</html>

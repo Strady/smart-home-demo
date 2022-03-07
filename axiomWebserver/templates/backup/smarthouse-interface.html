@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+ 
+  <!-- Zircle UI -->
+  <script type="text/javascript" src="https://unpkg.com/zircle"></script>
+  <link href="https://unpkg.com/zircle/dist/zircle.css" rel="stylesheet">
+
+  <!-- Socket.IO -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+
+  <!-- Loadsh -->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+
+  <!-- Fonts awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+      <link rel="manifest" href="/static/manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Axiom">
+    <meta name="apple-mobile-web-app-title" content="Axiom">
+    <meta name="theme-color" content="#f8f9fa" />
+    <meta name="msapplication-navbutton-color" content="#191919">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-starturl" content="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" sizes="36x36" href="/static/img/icons/android-icon-36x36.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="36x36" href="/static/img/icons/android-icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/static/img/icons/android-icon-48x48.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="48x48" href="/static/img/icons/android-icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="72x72" href="/static/img/icons/android-icon-72x72.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="/static/img/icons/android-icon-72x72.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/static/img/icons/android-icon-96x96.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="96x96" href="/static/img/icons/android-icon-96x96.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/static/img/icons/android-icon-144x144.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="/static/img/icons/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/img/icons/android-icon-192x192.png">
+    <link rel="apple-touch-icon" type="image/png" sizes="192x192" href="/static/img/icons/android-icon-192x192.png">
+
+
+  </head>
+  <body>
+  <div id="app">
+    <z-canvas :views="$options.components"></z-canvas>
+  </div>
+
+  <script>
+    const host = location.href; //Ссылка на хост
+    const debounceTimer = 200; //Задержка для debounce. На практике рекомендуется использовать ~100-300мс
+
+    var socket = io.connect(host);
+
+    //Компонент главного меню
+    const home = {
+      data: function () {
+        return {
+          name: 'AXIOM'
+        }
+      },
+      template: '<z-view>{{name}}</small><div slot="extension"><z-spot :angle="0" size="l" :distance="120" label="Освещение" label-pos="bottom" to-view="lights"><i class="far fa-lightbulb" style="font-size:3em"></i></z-spot><z-spot :angle="120" size="l" :distance="120" label="Климат" label-pos="bottom" to-view="climat"><i class="far fa-snowflake" style="font-size:3em"></i></z-spot><z-spot :angle="240" size="l" :distance="120" label="Безопасность" label-pos="bottom" to-view="security"><i class="fas fa-video" style="font-size:3em"></i></z-spot><z-spot :angle="60" size="s" :distance="100" label="Сценарии" label-pos="bottom" to-view="scenarios"><i class="far fa-list-alt"></i></z-spot><z-spot :angle="180" size="s" :distance="100" label="Настройки" label-pos="bottom" to-view="scenarios"><i class="fas fa-cog"></i></z-spot></div></z-view>'
+    };
+
+    //Компонент меню освещения
+    const lights = {
+      data: function() {
+        return {
+          lights: {}
+        }
+      },
+	beforeCreate: function () {
+            //Эммит на подключение
+            socket.emit('connected', {data: 'I\'m connected!'});
+        },
+      created: function () {
+	console.log('qq!');
+          //Получение данных при подключении
+          socket.on('json event', function(msg) {
+		console.log('qq!');
+              /* this.lights = msg;
+
+              //Пересборка JSON'а для knob
+              var msgKeys = Object.keys(msg),
+                  msgValues = Object.values(msg),
+                  data = new Object;
+
+		console.log(msg);
+
+              msgValues.forEach(function (value, index) {
+                  data[msgKeys[index]] = {
+                    'name': value.name,
+                    'status': value.status,
+                    'state': {
+                      'qty': value.state.value, 
+                      'unit':'%'
+                    }
+                  };
+              })
+
+              lights.lights = data;*/
+          })
+          //Получение данных
+          socket.on('state change', function (msg) {
+              lights.lights[msg.id].status = 
+              lights.lights[msg.id].state = {
+                'qty': msg.state.value
+              };
+          })
+      },
+      methods: {
+        push: function(val, index) {
+          var data = {
+              id : index,
+              state : {
+                'status': val.status,
+                'value': val.state.qty
+              }
+          }
+          console.log(data);
+          socket.emit('pushdata', data);
+        }
+      },
+      template: '<z-view>Освещение<div slot="extension"><z-spot v-for="(light, index) in lights" button :knob="!light.state === false" :label="light.name" :angle="360/Object.values(lights).length*Object.values(lights).indexOf(light)" :distance="130" @click.native="push(light,index)" size="m" v-bind.sync="light.state" ></z-spot></div></z-view>'
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        home, lights
+      },
+      mounted () {
+        this.$zircle.setView('home')
+      }
+    })
+  </script>
+  </body>
+</html>

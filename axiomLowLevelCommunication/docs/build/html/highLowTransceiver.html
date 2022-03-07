@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Модуль highLowTransceiver &#8212; документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Модуль serialTransceiver" href="serialTransceiver.html" />
+    <link rel="prev" title="Пакет axiomLowLevelCommunication" href="axiomLowLevelCommunication.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             accesskey="I">указатель</a></li>
+        <li class="right" >
+          <a href="serialTransceiver.html" title="Модуль serialTransceiver"
+             accesskey="N">вперёд</a> |</li>
+        <li class="right" >
+          <a href="axiomLowLevelCommunication.html" title="Пакет axiomLowLevelCommunication"
+             accesskey="P">назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="axiomLowLevelCommunication.html" accesskey="U">Пакет axiomLowLevelCommunication</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="highlowtransceiver">
+<h1>Модуль highLowTransceiver<a class="headerlink" href="#highlowtransceiver" title="Ссылка на этот заголовок">¶</a></h1>
+<dl class="class">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver">
+<em class="property">class </em><code class="sig-prename descclassname">axiomLowLevelCommunication.highLowTransceiver.</code><code class="sig-name descname">HighLowTransceiver</code><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver" title="Ссылка на это определение">¶</a></dt>
+<dd><dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.__init__"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.__init__" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Инициализирует экземпляр класса</p>
+<dl class="field-list simple">
+<dt class="field-odd">Переменные</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> – конфигурация аппаратных модулей системы</p></li>
+<li><p><strong>redis</strong> – объект подключения к БД Redis</p></li>
+<li><p><strong>isRunning</strong> – флаг работы/остановки</p></li>
+<li><p><strong>power_unit_addrs</strong> – список адресов силовых модулей</p></li>
+<li><p><strong>input_unit_addrs</strong> – список адресов модулей ввода</p></li>
+<li><p><strong>unit_addrs_to_transceivers_map</strong> – таблица соответствия адресов модулей объектам
+<a class="reference internal" href="serialTransceiver.html#axiomLowLevelCommunication.serialTransceiver.SerialTransceiver" title="axiomLowLevelCommunication.serialTransceiver.SerialTransceiver"><code class="xref py py-class docutils literal notranslate"><span class="pre">SerialTransceiver</span></code></a>, подключенным к COM портам, соответствующего модуля</p></li>
+<li><p><strong>power_units_state_dicts</strong> – структура состояния силовых модулей</p></li>
+<li><p><strong>input_units_state_dicts</strong> – структура состояния модулей ввода</p></li>
+<li><p><strong>power_units_maintenance</strong> – флаги силовых модулей обслуживание/штатная работа</p></li>
+<li><p><strong>humanreadable_states</strong> – таблица соответствия цифровых кодов состояний силовых модулей и их словесного описания</p></li>
+<li><p><strong>humanreadable_signals</strong> – таблица соответствия цифровых кодов сигналов силовых модулей и их словесного описания</p></li>
+<li><p><strong>ch_locks</strong> – словарь с объектами блокировки управления каналами силовых модулей</p></li>
+<li><p><strong>scheduler</strong> – планировщик задач</p></li>
+<li><p><strong>Crc8Table</strong> – таблица для рассчета контрольных сумм CRC8 табличным способом</p></li>
+<li><p><strong>pu_regex</strong> – шаблон регулярного выражения для парсинга посылок от силовых модулей</p></li>
+<li><p><strong>iu_regex</strong> – шаблон регулярного выражения для парсинга посылок от модулей ввода</p></li>
+<li><p><strong>P_passive</strong> – мощность потребляемая системой без учета подключенных к ней потребителей</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.before_return_from_set_ch_state">
+<code class="sig-name descname">before_return_from_set_ch_state</code><span class="sig-paren">(</span><em class="sig-param">log_msg</em>, <em class="sig-param">channel_addr</em>, <em class="sig-param">current_state</em>, <em class="sig-param">redis_error_msg=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.before_return_from_set_ch_state"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.before_return_from_set_ch_state" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Вызывается перед выходом из фунции <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">set_ch_state()</span></code></a></p>
+<p>Выполняет следущие действия:</p>
+<ol class="arabic simple">
+<li><p>Публикует на брокер текущее состояние силового выхода;</p></li>
+<li><p>Записывает в лог результат выполнения команды;</p></li>
+<li><p>Публикует на брокер сообщение об ошибке, если она есть;</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_msg</strong> (<em>str</em>) – сообщение для записи в лог</p></li>
+<li><p><strong>channel_addr</strong> (<em>str</em>) – адрес канала силового модуля</p></li>
+<li><p><strong>current_state</strong> (<em>str</em>) – текущее состояние канала силового модуля („0“…„7“)</p></li>
+<li><p><strong>redis_error_msg</strong> (<em>str</em>) – сообщение об ошибке для публикации на брокер (по умолчанию None)</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-center">
+<img alt="_images/before_return_from_set_ch_state.png" src="_images/before_return_from_set_ch_state.png" />
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_crc8">
+<code class="sig-name descname">calc_crc8</code><span class="sig-paren">(</span><em class="sig-param">buff</em>, <em class="sig-param">crc</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.calc_crc8"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_crc8" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Рассчитывает контрольную сумму по алгоритму CRC8</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buff</strong> (<em>numpy.ndarray</em>) – массив с байтами числа</p></li>
+<li><p><strong>crc</strong> (<em>int</em>) – инициализирующее значение</p></li>
+</ul>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>numpy.int64</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>рассчитанная контрольная сумма</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_passive_consumption">
+<code class="sig-name descname">calc_passive_consumption</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.calc_passive_consumption"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_passive_consumption" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Расчет пассивной потребляемой мощности схемы
+в режиме ожидания</p>
+<dl class="field-list simple">
+<dt class="field-odd">Deprecated</dt>
+<dd class="field-odd"><p></p></dd>
+<dt class="field-even">Результат</dt>
+<dd class="field-even"><p>пассивная потребляемая мощность</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_system_own_power">
+<code class="sig-name descname">calc_system_own_power</code><span class="sig-paren">(</span><em class="sig-param">input_unit_addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.calc_system_own_power"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.calc_system_own_power" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Рассчитывает собственную (без учета потребителей) мощность
+расходуемую платой, на которой установлен модуль ввода</p>
+<p>Расчет производится по формуле <span class="math notranslate nohighlight">\(P = U_{in} \cdot I_{in} + U_{in} \cdot I_{out} + U_{in} \cdot I_{ypr}\)</span>, где</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(U_{in}\)</span> - действующее значение напряжение сети [В];</p></li>
+<li><p><span class="math notranslate nohighlight">\(I_{in}\)</span> - значение тока, потребляемого внутренними модулями модуля ввода [A];</p></li>
+<li><p><span class="math notranslate nohighlight">\(I_{out}\)</span> - значение тока, потребляемого внешними модулями [A];</p></li>
+<li><p><span class="math notranslate nohighlight">\(I_{ypr}\)</span> - значение тока, потребляемого автоматом управления [A].</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>input_unit_addr</strong> (<em>str</em>) – адрес модуля ввода</p>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>рассчитанная мощность [Вт]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.check_power_unit_counter">
+<code class="sig-name descname">check_power_unit_counter</code><span class="sig-paren">(</span><em class="sig-param">counter</em>, <em class="sig-param">unit_addr</em>, <em class="sig-param">type_cmd</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.check_power_unit_counter"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.check_power_unit_counter" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Контролирует корректность счетчика в посылке от ПО силового модуля</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>counter</strong> (<em>str</em>) – значение счетчика</p></li>
+<li><p><strong>unit_addr</strong> (<em>str</em>) – адрес силового модуля, от которого пришла посылка</p></li>
+<li><p><strong>type_cmd</strong> (<em>str</em>) – тип посылки</p></li>
+</ul>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/check_power_unit_counter.png"><img alt="_images/check_power_unit_counter.png" src="_images/check_power_unit_counter.png" style="width: 785.5px; height: 915.0px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.configure_power_unit">
+<code class="sig-name descname">configure_power_unit</code><span class="sig-paren">(</span><em class="sig-param">unit_addr</em>, <em class="sig-param">retries=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.configure_power_unit"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.configure_power_unit" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Конфигурирует ПО силового модуля:</p>
+<p>Отправляет на силовой модуль команды конфигурации:</p>
+<ul class="simple">
+<li><p>установка порогов по току потребления : <code class="docutils literal notranslate"><span class="pre">adc</span> <span class="pre">hgrp</span> <span class="pre">&lt;Imax1&gt;</span> <span class="pre">&lt;Imax2&gt;</span> <span class="pre">&lt;crc8-1&gt;</span> <span class="pre">&lt;crc8-2&gt;</span> <span class="pre">&lt;unit_addr&gt;</span></code>;</p></li>
+<li><p>установка порогов по току утечки: <code class="docutils literal notranslate"><span class="pre">adc</span> <span class="pre">hlgrp</span> <span class="pre">&lt;Imax1&gt;</span> <span class="pre">&lt;Imax2&gt;</span> <span class="pre">&lt;crc8-1&gt;</span> <span class="pre">&lt;crc8-2&gt;</span> <span class="pre">&lt;unit_addr&gt;</span></code>.</p></li>
+</ul>
+<p>Контролирует исполнение команд. Команды считается выполненными успешно,
+если ни один из каналов не остался в состоянии „3“ (nuse)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_addr</strong> (<em>str</em>) – адрес силового модуля</p></li>
+<li><p><strong>retries</strong> (<em>int</em>) – количество возможных повторых попыток</p></li>
+</ul>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>True - успешное исполнение команды), False - неуспешное</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<img alt="_images/configure_power_unit.png" src="_images/configure_power_unit.png" />
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply">
+<code class="sig-name descname">handle_reply</code><span class="sig-paren">(</span><em class="sig-param">reply</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.handle_reply"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обрабатывает ответы по ПО низкого уровня</p>
+<p>Отправляет ответы на запросы измерения сопротивления изоляции в канал Redis
+<code class="docutils literal notranslate"><span class="pre">axiomLowLevelCommunication:response:insulation</span></code> в формате
+<code class="docutils literal notranslate"><span class="pre">&lt;адрес</span> <span class="pre">выхода</span> <span class="pre">силового</span> <span class="pre">модуля&gt;</span> <span class="pre">&lt;измеренное</span> <span class="pre">значение&gt;</span></code>. Записывает измеренное значение
+в структуру состояния силовых модулей <code class="xref py py-attr docutils literal notranslate"><span class="pre">power_units_state_dicts</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>reply</strong> (<em>str</em>) – посылка типа «rply» от ПО низкого уровня</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.init_power_unit">
+<code class="sig-name descname">init_power_unit</code><span class="sig-paren">(</span><em class="sig-param">unit_addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.init_power_unit"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.init_power_unit" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Инициализирует силовой модуль</p>
+<p>Отправляет на силовой модуль команды запуска и установки порогов и
+проверяет их исполнение. После запуска и установки порогов
+включает выходы, которые были включены до перезагрузки модуля</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>unit_addr</strong> (<em>str</em>) – адрес силового модуля</p>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>True - инициализация прошла успешно, False - возникли ошибки</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/init_power_unit.png"><img alt="_images/init_power_unit.png" src="_images/init_power_unit.png" style="width: 570.0px; height: 877.0px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.load_settings">
+<code class="sig-name descname">load_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.load_settings"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.load_settings" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Загружает настройки ПО из файла с настройками</p>
+<dl class="field-list simple">
+<dt class="field-odd">Тип результата</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+<dt class="field-even">Результат</dt>
+<dd class="field-even"><p>словарь с настройками</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.measure_insulation_resistance">
+<code class="sig-name descname">measure_insulation_resistance</code><span class="sig-paren">(</span><em class="sig-param">channel_addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.measure_insulation_resistance"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.measure_insulation_resistance" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выполняет команду измерения сопротивления изоляции канала силового модуля</p>
+<p>Переводит силовой модуль в состояния «обслуживание». Отправляет на низкий уровень
+команду сброса: <code class="docutils literal notranslate"><span class="pre">rst</span> <span class="pre">&lt;unit_addr&gt;</span></code>. Отравляет на низкий уровень команду
+на измерение сопротивления изоляции: <code class="docutils literal notranslate"><span class="pre">resist</span> <span class="pre">start</span> <span class="pre">1|2</span> <span class="pre">&lt;unit_addr&gt;</span></code>.
+Контролирует выполнение команды</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>channel_addr</strong> (<em>str</em>) – адрес канала силового модуля</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/measure_insulation_resistance.png"><img alt="_images/measure_insulation_resistance.png" src="_images/measure_insulation_resistance.png" style="width: 347.0px; height: 1039.5px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.on_new_state_parcel">
+<code class="sig-name descname">on_new_state_parcel</code><span class="sig-paren">(</span><em class="sig-param">parcel</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.on_new_state_parcel"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.on_new_state_parcel" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обрабатывает новые посылки типа «st» от силовых модулей</p>
+<p>Если состояние какого-либо из каналов силового модуля изменилось то:</p>
+<ol class="arabic simple">
+<li><p>новое состояние публикуется в канал <code class="docutils literal notranslate"><span class="pre">axiomLowLevelCommunication:info:state</span></code></p></li>
+<li><p>если канал перешел в одно из состояний („2“, „4“, „5“, „6“, „7“), то новое состояние сохраняется в Redis</p></li>
+<li><p>сообщение о переходе канала в новое состояние пишется в лог</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>parcel</strong> (<em>dict</em>) – разобранная посылка от низкого уровня</p>
+</dd>
+</dl>
+<p>Если состояние одного из каналов „0“ и модуль не находится в режиме «обслуживание»,
+выполняется инициализация модуля</p>
+<div class="figure align-center">
+<img alt="_images/on_new_state_parcel.png" src="_images/on_new_state_parcel.png" />
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.publish_current_characteristics">
+<code class="sig-name descname">publish_current_characteristics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.publish_current_characteristics"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.publish_current_characteristics" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Публикует на брокер текущие значения энергетических характеристик аппаратных модулей</p>
+<p>Запускается как задача планировщика <code class="xref py py-attr docutils literal notranslate"><span class="pre">scheduler</span></code>. Выполняется каждые 10 секунд. Отправляет
+следующие характеристики:</p>
+<ul class="simple">
+<li><p>Напряжение электросети на модулях ввода;</p></li>
+<li><p>Частота электросети на модулях ввода;</p></li>
+<li><p>Активная потребляемая мощность в каналах силовых модулей;</p></li>
+<li><p>Реактивная потребляемая мощность в каналах силовых модулей;</p></li>
+<li><p>Ток, потребляемый в каналах силовых модулей;</p></li>
+<li><p>Температура каналов силовых модулей.</p></li>
+</ul>
+<p>Канал Redis для отправки сообщений: <code class="docutils literal notranslate"><span class="pre">axiomLowLevelCommunication:info:metrics_data</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.reader_target">
+<code class="sig-name descname">reader_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.reader_target"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.reader_target" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Осуществляет прием данных от низкоуровневого ПО</p>
+<p>Для каждого силового и вводного модуля запускает в отдельном потоке функцию
+<a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_power_unit_state" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_power_unit_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_power_unit_state()</span></code></a> или <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_input_unit_state" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_input_unit_state"><code class="xref py py-func docutils literal notranslate"><span class="pre">update_input_unit_state()</span></code></a> соответственно
+и контролирует работу запущенных потоков</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/reader_target.png"><img alt="_images/reader_target.png" src="_images/reader_target.png" style="width: 785.5px; height: 1131.5px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.run"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.run" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает основной цикл работы функционального модуля.</p>
+<ol class="arabic simple">
+<li><p>Запускает в потоке метод опроса аппаратных модулей <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.reader_target" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.reader_target"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reader_target()</span></code></a>;</p></li>
+<li><p>Запускает выполнение задач планировщика <code class="xref py py-attr docutils literal notranslate"><span class="pre">scheduler</span></code>;</p></li>
+<li><p>Запускает в потоке метод обработки команд от модуля «Логика» <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.writer_target" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.writer_target"><code class="xref py py-meth docutils literal notranslate"><span class="pre">writer_target()</span></code></a>.</p></li>
+</ol>
+<p>Контролирует рабочее состояние потоков опроса и обработки команд</p>
+<div class="figure align-center">
+<img alt="_images/run.png" src="_images/run.png" />
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.run_power_unit">
+<code class="sig-name descname">run_power_unit</code><span class="sig-paren">(</span><em class="sig-param">unit_addr</em>, <em class="sig-param">retries=3</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.run_power_unit"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.run_power_unit" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Запускает ПО силового модуля</p>
+<p>Отправляет на модуль команду запуска <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">start</span> <span class="pre">&lt;unit_addr&gt;</span></code>.
+Контролирует исполнение команды. Команда считается выполненной
+успешно, если ни один из каналов не остался в состоянии „0“ (idle)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>unit_addr</strong> (<em>str</em>) – адрес силового модуля</p></li>
+<li><p><strong>retries</strong> (<em>int</em>) – количество возможных повторых попыток</p></li>
+</ul>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>True - успешное исполнение команды), False - неуспешное</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<img alt="_images/run_power_unit.png" src="_images/run_power_unit.png" />
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state">
+<code class="sig-name descname">set_ch_state</code><span class="sig-paren">(</span><em class="sig-param">channel_addr</em>, <em class="sig-param">new_state_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.set_ch_state"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Выполняет команду установки нового состояния выхода силового модуля</p>
+<p>Отправляет на низкий уровень команду <code class="docutils literal notranslate"><span class="pre">ch</span> <span class="pre">1|2</span> <span class="pre">on|off</span> <span class="pre">&lt;unit_addr&gt;</span></code>.
+Контролирует исполнение команды. Перед выходом вызывает метод <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.before_return_from_set_ch_state" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.before_return_from_set_ch_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">before_return_from_set_ch_state()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel_addr</strong> (<em>str</em>) – адрес канала силового модуля</p></li>
+<li><p><strong>new_state_dict</strong> (<em>dict</em>) – состояние канала силового модуля, которое нужно установить. Формат: <code class="docutils literal notranslate"><span class="pre">{'status':</span> <span class="pre">'4'|'5'}</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Тип результата</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">Результат</dt>
+<dd class="field-odd"><p>True - команда выполнена, False - возникли ошибки</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/set_ch_state.png"><img alt="_images/set_ch_state.png" src="_images/set_ch_state.png" style="width: 714.5px; height: 1132.5px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.sigterm_handler">
+<code class="sig-name descname">sigterm_handler</code><span class="sig-paren">(</span><em class="sig-param">signum</em>, <em class="sig-param">frame</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.sigterm_handler"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.sigterm_handler" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Корректно останавливает программу при получении сигнала SIGTERM, SIGINT</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>signum</strong> – signal number (не используется)</p></li>
+<li><p><strong>frame</strong> – current stack frame (не используется)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.split_to_bytes">
+<code class="sig-name descname">split_to_bytes</code><span class="sig-paren">(</span><em class="sig-param">number</em>, <em class="sig-param">num_byte</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.split_to_bytes"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.split_to_bytes" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Представляет число в виде массива байтов, из которых оно состоит
+:type number: numpy.uint8
+:param number: исходное число
+:type num_byte: int
+:param num_byte: количество байт занимаемых числом
+:rtype: numpy.ndarray
+:return: массив с байтами числа</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_input_unit_state">
+<code class="sig-name descname">update_input_unit_state</code><span class="sig-paren">(</span><em class="sig-param">unit_addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.update_input_unit_state"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_input_unit_state" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обрабатывает посылки от ПО модулей ввода</p>
+<ul class="simple">
+<li><p>для посылок типа «rply» вызывается функция <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply"><code class="xref py py-func docutils literal notranslate"><span class="pre">handle_reply()</span></code></a></p></li>
+<li><p>для посылок тика «st», «volt», «cur» обновляются соответстующие поля структуры <code class="xref py py-attr docutils literal notranslate"><span class="pre">input_units_state_dicts</span></code>;</p></li>
+<li><p>для всех посылок вызываетс функция <code class="xref py py-func docutils literal notranslate"><span class="pre">check_input_unit_counter()</span></code>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>unit_addr</strong> (<em>str</em>) – адрес модуля ввода</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/update_input_unit_state.png"><img alt="_images/update_input_unit_state.png" src="_images/update_input_unit_state.png" style="width: 696.5px; height: 1132.5px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_power_unit_state">
+<code class="sig-name descname">update_power_unit_state</code><span class="sig-paren">(</span><em class="sig-param">unit_addr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.update_power_unit_state"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.update_power_unit_state" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обрабатывает посылки от ПО силовых модулей</p>
+<ul class="simple">
+<li><p>для посылок типа «rply» вызывается функция <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.handle_reply"><code class="xref py py-func docutils literal notranslate"><span class="pre">handle_reply()</span></code></a></p></li>
+<li><p>для посылок типа «st» вызывается функция <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.on_new_state_parcel" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.on_new_state_parcel"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_new_state_parcel()</span></code></a>;</p></li>
+<li><p>для посылок тика «st», «adc», «ld», «tmpr» обновляются соответстующие поля структуры <code class="xref py py-attr docutils literal notranslate"><span class="pre">power_units_state_dicts</span></code>;</p></li>
+<li><p>для всех посылок вызываетс функция <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.check_power_unit_counter" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.check_power_unit_counter"><code class="xref py py-func docutils literal notranslate"><span class="pre">check_power_unit_counter()</span></code></a>.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры</dt>
+<dd class="field-odd"><p><strong>unit_addr</strong> (<em>str</em>) – адрес силового модуля</p>
+</dd>
+</dl>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/update_power_unit_state.png"><img alt="_images/update_power_unit_state.png" src="_images/update_power_unit_state.png" style="width: 715.0px; height: 1132.5px;" /></a>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.writer_target">
+<code class="sig-name descname">writer_target</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/axiomLowLevelCommunication/highLowTransceiver.html#HighLowTransceiver.writer_target"><span class="viewcode-link">[исходный код]</span></a><a class="headerlink" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.writer_target" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Обрабатывает команды от функционального модуля «Логика»</p>
+<p>При получении команды вызывает соответствующий метод для ее обработки.
+Поддерживаемые команды:</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Установка нового состояния выхода силового модуля:</dt><dd><ul class="simple">
+<li><p>канал Redis: <code class="docutils literal notranslate"><span class="pre">axiomLogic:cmd:state</span></code>;</p></li>
+<li><p>формат команды: <code class="docutils literal notranslate"><span class="pre">{'addr':</span> <span class="pre">&lt;channel_addr&gt;,</span> <span class="pre">'state':</span> <span class="pre">{'status':</span> <span class="pre">'4'|'5'}}</span></code>;</p></li>
+<li><p>метод для обработки: <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.set_ch_state"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_ch_state()</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Измерение сопротивления изоляции канала силового модуля:</dt><dd><ul class="simple">
+<li><p>канал Redis: <code class="docutils literal notranslate"><span class="pre">axiomLogic:request:insulation</span></code>;</p></li>
+<li><p>формат команды: <code class="docutils literal notranslate"><span class="pre">&lt;channel_addr&gt;</span></code>;</p></li>
+<li><p>метод для обработки: <a class="reference internal" href="#axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.measure_insulation_resistance" title="axiomLowLevelCommunication.highLowTransceiver.HighLowTransceiver.measure_insulation_resistance"><code class="xref py py-meth docutils literal notranslate"><span class="pre">measure_insulation_resistance()</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="_images/writer_target.png"><img alt="_images/writer_target.png" src="_images/writer_target.png" style="width: 784.5px; height: 1129.0px;" /></a>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Предыдущий раздел</h4>
+  <p class="topless"><a href="axiomLowLevelCommunication.html"
+                        title="предыдущая глава">Пакет axiomLowLevelCommunication</a></p>
+  <h4>Следующий раздел</h4>
+  <p class="topless"><a href="serialTransceiver.html"
+                        title="следующая глава">Модуль serialTransceiver</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Эта страница</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/highLowTransceiver.rst.txt"
+            rel="nofollow">Исходный текст</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Навигация</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Алфавитный указатель"
+             >указатель</a></li>
+        <li class="right" >
+          <a href="serialTransceiver.html" title="Модуль serialTransceiver"
+             >вперёд</a> |</li>
+        <li class="right" >
+          <a href="axiomLowLevelCommunication.html" title="Пакет axiomLowLevelCommunication"
+             >назад</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">документация функциональный модуль &#34;Взаимодействие с низким уровнем&#34; 0.1</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="axiomLowLevelCommunication.html" >Пакет axiomLowLevelCommunication</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Андрей Абраменко.
+      Создано с помощью <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.0.
+    </div>
+  </body>
+</html>
